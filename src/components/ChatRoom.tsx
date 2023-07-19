@@ -109,7 +109,7 @@ const handleCallUser=async()=>{
  return(
     <div>
        you joined room with id {roomId}
-      {remoteSocketId && <h1>you are connected</h1>}
+      {remoteSocketId && <h1>you are connected ..</h1>}
       <button onClick={handleCallUser}>Call</button>
       {localStream&&<button onClick={sendStream}>send stream</button>}
       <div>
