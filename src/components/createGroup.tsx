@@ -1,34 +1,59 @@
 // CreateGroup.tsx
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createGroup } from '../services/api';
+import {  useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../reduxHooks';
+import { createNewGroup, fetchGroups } from '../features/chatSlice';
+import Modal from './modal';
 
 const CreateGroup: React.FC = () => {
   const [groupName, setGroupName] = useState('');
   const navigate = useNavigate();
+  const dispatch=useAppDispatch()
+  const [isOpen, setIsOpen] = useState(false);
+  const [nameError,setNameError]=useState<string |undefined>(undefined)
 
-  const handleCreateGroup = async () => {
-    try {
-      const response = await createGroup(groupName);
-      console.log(response.data);
-      // Redirect to the group list page
-      navigate('/groups');
-    } catch (error) {
-      console.error('Error creating group:', error);
-    }
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
+  const handleCreateGroup=()=>{
+    const validPattern = /^[a-z0-9_-]+$/;
+    if (groupName && validPattern.test(groupName)){
+      dispatch(createNewGroup(groupName)).then(res=>{
+        dispatch(fetchGroups())
+        setGroupName("")
+       setIsOpen(false)
+       setNameError(undefined)
+      })
+    }
+    else{
+      setNameError("Allowed values are alphabets, numbers, hyphen and underscores")
+    }
+  }
+  const footer = (
+    <>
+      <button onClick={handleCloseModal}>Close</button>
+      <button onClick={handleCreateGroup} disabled={groupName===undefined}>Create Group</button>
+    </>
+  );
+  const modalContent=(
+    <div>
+      <h2>Create  Group</h2>
+       <input type="text" placeholder="Group Name"  required value={groupName} onChange={(e)=>setGroupName(e.target.value)}  />
+       {nameError && <p style={{ color: 'red' }}>{nameError}</p>}
 
+      </div>
+  )
+ 
+  
+ 
   return (
     <div>
-    
-      <input
-        type="text"
-        value={groupName}
-        onChange={(e) => setGroupName(e.target.value)}
-        placeholder="Enter group name"
-      />
-      <button onClick={handleCreateGroup}>Create Group</button>
+      <button onClick={()=>setIsOpen(true)} style={{padding:'10px 20px'}}>Create Group</button>
+      <Modal isOpen={isOpen} onClose={handleCloseModal} title="Create Group">
+        {modalContent}
+        {footer}
+      </Modal>    
     </div>
   );
 };

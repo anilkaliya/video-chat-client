@@ -4,7 +4,7 @@
 }
 
 .groups-section {
-  width: 25%;
+  width: 20%;
   background-color: lightgray;
 }
 
@@ -15,5 +15,6 @@
 .create-group{
   position: absolute;
   bottom: 5vh;
-  left:6.25%
+  left:6.25%;
+  display:flex
 }

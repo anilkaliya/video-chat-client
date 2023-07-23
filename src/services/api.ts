@@ -18,5 +18,9 @@ export const createGroup = async (groupName: string) => {
   };
 
 export const getGroups = async () => {
+
   return await api.get('/groups');
 };
+export const deleteGroupFromList=async(groupId:string)=>{
+return await api.delete(`/groups/${groupId}`)
+}
