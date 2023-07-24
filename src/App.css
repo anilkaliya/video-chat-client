@@ -5,16 +5,19 @@
 
 .groups-section {
   width: 20%;
-  background-color: lightgray;
 }
 
 .chat-section {
   flex: 1;
   border-left: 1px solid gray;
+  background-color: #fafafa;
+  height:100vh;
+ 
 }
 .create-group{
   position: absolute;
   bottom: 5vh;
-  left:6.25%;
-  display:flex
+  left:2vw;
+  display:flex;
+  flex-wrap: wrap;
 }

@@ -55,10 +55,10 @@ const GroupList: React.FC = () => {
     <div className='group-list-wrapper'>
       {groups.length===0? <NoGroupFound/>:
       <>
-      <div className='group-list-header'>All Groups</div>
+      <div className='group-list-header'>Groups</div>
         {groups&&groups.map((group) => (
           <div className='list-item'>
-            <Link to={`/groups/${group.id}/video-chat`}>
+            <Link to={`/groups/${group.id}/video-chat`} className='btn btn-info'>
               {group.name}
             </Link>
             <DeleteIcon style={{padding:"0px 12px",cursor:"pointer"}} onClick={()=>handleDeleteGroup(group.id)}/>

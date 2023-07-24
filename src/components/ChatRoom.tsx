@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import peer from '../service/peer'
 import { useAppSelector } from "../reduxHooks";
 import Modal from "./modal";
+import '../styles/chatroom.css'
 export const ChatRoom=()=>{
    const params = useParams();
    const roomId = params.roomId as string;
@@ -51,13 +52,15 @@ export const ChatRoom=()=>{
  },[socket])
 
  const sendStream=useCallback(()=>{
-
-   for (const track of localStream.getTracks()){
-      if(peer.peer){
-         peer.peer.addTrack(track,localStream)
+   
+      for (const track of localStream.getTracks()){
+         if(peer.peer){
+            peer.peer.addTrack(track,localStream)
+         }
+        
       }
-     
-   }
+
+
  },[localStream])
 
  const handleCallAccepted=useCallback(async(data:any)=>{
@@ -125,39 +128,38 @@ const handleCallUser=async()=>{
    setLocalStream(stream)
    socket.emit("call:accepted",{to:from,answer})
    setIncomingCall(false)
+   sendStream()
  }
 const modalContent=(
-   <div>
-      User is callling
+   <div className="incoming-call-modal">
+      Incoming call
    </div>
 )
 
 const footer = (
-   <>
-     <button onClick={()=>setIncomingCall(false)}>Close</button>
-     <button onClick={acceptIncomingCall} >Accept</button>
-   </>
+   <div className="incoming-call-footer">
+     <button className="btn btn-danger" onClick={()=>setIncomingCall(false)}>Close</button>
+     <button onClick={acceptIncomingCall} className="btn btn-success" >Accept</button>
+   </div>
  );
  return(
-    <div>
-     <p> You joined room with id {roomId}</p> 
+    <div className="chat-room"> 
       {remoteSocketId && <h1>You are connected ..</h1>}
-      <button onClick={handleCallUser}>Call</button>
-      {localStream&&<button onClick={sendStream}>send stream</button>}
       <div>
          <h1>You</h1>
-      {localStream&&<ReactPlayer url={localStream} playing width={300} height={300}></ReactPlayer>}
+      {localStream&&<ReactPlayer url={localStream} playing width='60vw' height='30vh' muted></ReactPlayer>}
       </div>
       
       <div>
          <h1>Your Friend</h1>
-         {remoteStream &&<ReactPlayer url={remoteStream} playing width={300} height={300}></ReactPlayer>}
+         {remoteStream &&<ReactPlayer url={remoteStream} playing width='60vw' height='30vh'></ReactPlayer>}
       </div>
       <Modal isOpen={incomingCall} onClose={()=>setIsOpen(false)} title="Incoming call">
         {modalContent}
         {footer}
     </Modal> 
-
+    <button type="button" className="btn btn-success" onClick={handleCallUser}>Call</button>
+    {localStream&&<button onClick={sendStream}>send stream</button>}
     </div>
  )
 }

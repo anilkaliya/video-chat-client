@@ -12,10 +12,10 @@
   }
   
   .modal-content {
-    background-color: #fff;
+    background-color:grey !important;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     max-width: 50vw;
     min-width: 30vw;
   }
@@ -25,14 +25,14 @@
   }
   
   .modal-content input {
-    width: 90%;
+    width: 94%;
     padding: 10px;
     margin-bottom: 10px;
   }
   
   .modal-content button {
-    padding: 10px 20px;
-    margin-right: 10px;
+    padding: 0.8vw 0.8vw;
+    border-radius: 5px solid grey;
   }
   
   .modal-content button:last-child {

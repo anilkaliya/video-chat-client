@@ -1,10 +1,11 @@
 a {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #4caf50; /* Light green color */
-    color: #fff; /* Text color: white */
+    padding: 8px 4px;
+    background-color: #f8f9fa; /* Light green color */
+    color: black; /* Text color: white */
     text-decoration: none; /* Remove underline */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px;
+    min-width: 10vw;
   }
   .group-list-header{
    font-weight: 600;
@@ -16,10 +17,9 @@ a {
   .group-list-wrapper{
     display: flex;
     flex-direction: column;
-
     padding:0px 12px;
-   height: 80vh;
-   overflow-y: auto
+    height: 80vh;
+    overflow-y: auto
   }
 
 .list-item {

@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../reduxHooks';
 import { createNewGroup, fetchGroups } from '../features/chatSlice';
 import Modal from './modal';
-
+import '../styles/createGroup.css'
 const CreateGroup: React.FC = () => {
   const [groupName, setGroupName] = useState('');
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const CreateGroup: React.FC = () => {
     setIsOpen(false);
   };
   const handleCreateGroup=()=>{
-    const validPattern = /^[a-z0-9_-]+$/;
+    const validPattern = /^[a-zA-Z0-9_-]+$/;
     if (groupName && validPattern.test(groupName)){
       dispatch(createNewGroup(groupName)).then(res=>{
         dispatch(fetchGroups())
@@ -31,10 +31,10 @@ const CreateGroup: React.FC = () => {
     }
   }
   const footer = (
-    <>
-      <button onClick={handleCloseModal}>Close</button>
-      <button onClick={handleCreateGroup} disabled={groupName===undefined}>Create Group</button>
-    </>
+    <div className='footer-buttons'>
+    <button type="button" className="btn btn-danger"  onClick={handleCloseModal}>Cancel</button>
+      <button onClick={handleCreateGroup} className='btn btn-primary' disabled={groupName===undefined}>Create</button>
+    </div>
   );
   const modalContent=(
     <div>
@@ -49,7 +49,7 @@ const CreateGroup: React.FC = () => {
  
   return (
     <div>
-      <button onClick={()=>setIsOpen(true)} style={{padding:'10px 20px'}}>Create Group</button>
+      <button onClick={()=>setIsOpen(true)} style={{padding:'8px 8px',minWidth:'fit-content'}} className='btn btn-primary'>New Group</button>
       <Modal isOpen={isOpen} onClose={handleCloseModal} title="Create Group">
         {modalContent}
         {footer}

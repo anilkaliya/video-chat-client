@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { SocketProvider } from './context/socketProviders';
 import { store } from './store'
 import { Provider } from 'react-redux'
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

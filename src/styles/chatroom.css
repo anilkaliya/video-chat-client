@@ -1,0 +1,14 @@
+.chat-room{
+    padding:12px 12px;
+}
+.incoming-call-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.incoming-call-modal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
